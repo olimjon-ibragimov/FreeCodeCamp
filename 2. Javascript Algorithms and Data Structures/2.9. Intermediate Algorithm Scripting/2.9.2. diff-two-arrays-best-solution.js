@@ -1,1 +1,8 @@
-{"index.js":"// function diffArray(arr1, arr2) {\n//   var newArr = [];\n\n//   for (let item in arr1){\n//     console.log(arr1[item], arr2.indexOf(arr1[item]));\n//     if (arr2.indexOf(arr1[item]) == -1){\n//       newArr.push(arr1[item]);\n//     } else {\n//       arr2.splice(arr2.indexOf(arr1[item]), 1);\n//     }\n//     console.log(arr2);\n//     console.log(newArr);\n//   }\n//   if (arr2.length != 0){\n//     for (let item in arr2){\n//       console.log(arr2[item], arr1.indexOf(arr2[item]));\n//       if (arr1.indexOf(arr2[item]) == -1){\n//         newArr.push(arr2[item]);\n//       }\n//       console.log(newArr);\n//     }\n//     console.log(\"There is something\")\n//   }\n//   return newArr;\n// }\n\nfunction diffArray(arr1, arr2) {\n  return [\n    ...diff(arr1, arr2),\n    ...diff(arr2, arr1)\n  ]\n  \n  function diff(a, b) {\n    return a.filter(item => b.indexOf(item) === -1);\n  }\n}\n\ndiffArray([1, \"calf\", 3, \"piglet\"], [1, \"calf\", 3, 4]);"}
+function diffArray(arr1, arr2) {
+    return [...diff(arr1, arr2), ...diff(arr2, arr1)]
+
+    function diff(a, b) {
+        return a.filter(item => b.indexOf(item) === -1);
+    }
+}
+diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]);

@@ -1,4 +1,4 @@
-# Solutions for **freeCodeCamp** Certifications
+# Solutions for freeCodeCamp Certifications
 
 ### 1. Responsive Web Design
 
