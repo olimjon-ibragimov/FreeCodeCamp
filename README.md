@@ -1,8 +1,8 @@
-### [My freeCodeCamp Profile](https://www.freecodecamp.org/olimjonibr) :space_invader:
+:space_invader: [My freeCodeCamp Profile](https://www.freecodecamp.org/olimjonibr) 
 
 ---
 
-# Solutions for freeCodeCamp Certifications
+## Solutions for freeCodeCamp Certifications
 
 ### 1. Responsive Web Design
 
