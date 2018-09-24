@@ -1,7 +1,3 @@
-:space_invader: [My freeCodeCamp Profile](https://www.freecodecamp.org/olimjonibr) 
-
----
-
 ## Solutions for freeCodeCamp Certifications
 
 ### 1. Responsive Web Design
@@ -17,3 +13,7 @@
 ### 6. Information Security and Quality Assurance
 
 ### 7. Coding Interview Prep
+
+---
+
+:space_invader: [My freeCodeCamp Profile](https://www.freecodecamp.org/olimjonibr) 
