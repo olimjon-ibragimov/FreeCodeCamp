@@ -2,7 +2,7 @@
 
 ### 1. Responsive Web Design
 
-### 2. [JavaScript Algorithms and Data Structures](https://github.com/olimjonibr/freeCodeCamp/tree/master/2.%20Javascript%20Algorithms%20and%20Data%20Structures)
+### 2. [JavaScript Algorithms and Data Structures](https://github.com/olimjon-ibragimov/freeCodeCamp/tree/master/2.%20Javascript%20Algorithms%20and%20Data%20Structures)
 
 ### 3. Front End Libraries
 
@@ -16,4 +16,4 @@
 
 ---
 
-### :space_invader: [My freeCodeCamp Profile](https://www.freecodecamp.org/olimjonibr) 
+### :space_invader: [My freeCodeCamp Profile](https://www.freecodecamp.org/ibragimov) 
