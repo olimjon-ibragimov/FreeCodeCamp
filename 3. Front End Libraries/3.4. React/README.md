@@ -56,37 +56,91 @@
             ```
         * `Kitten`'s constructor uses `super()` which calls the constructor of the parent class, in this case `React.Component`. 
         * The constructor is a special method used during the initialization of objects that are created with the `class` keyword. It is best practice to call a component's constructor with `super`, and pass `props` to both. This makes sure the component is initialized properly. 
-* Component Composition
-    * Component composition is one of React's powerful features. When you work with React, it is important to start thinking about your user interface in terms of components like the App example in the last challenge. You break down your UI into its basic building blocks, and those pieces become the components. This helps to separate the code responsible for the UI from the code responsible for handling your application logic. It can greatly simplify the development and maintenance of complex projects.
 
-    * Imagine you are building an App and have created three components, a `Navbar`, `Dashboard`, and `Footer`. To compose these components together, you could create an `App` parent component which renders each of these three components as children. To render a component as a child in a React component, you include the component name written as a custom HTML tag in the JSX. For example, in the `render` method you could write:
-        ```
-        return (
-            <App>
-            <Navbar />
-            <Dashboard />
-            <Footer />
-            </App>
-        )
-        ```
-        * When React encounters a custom HTML tag that references another component (a component name wrapped in `< />` like in this example), it renders the markup for that component in the location of the tag.
-    
-    * You can render JSX elements, stateless functional components, and ES6 class components within other components.
+  * Overview:
+    * A **stateless functional component** is any function you write which accepts props and returns JSX. 
+    * A **stateless component**, on the other hand, is a class that extends `React.Component`, but does not use internal state.
+    * A **stateful component** is a class component that does maintain its own internal state. You may see stateful components referred to simply as components or React components.
+
+  * Common pattern:
+    * Try to minimize statefulness and to create stateless functional components wherever possible. This helps contain your state management to a specific area of your application. In turn, this improves development and maintenance of your app by making it easier to follow how changes to state affect its behavior.
+
+
+* Component Composition
+  * Component composition is one of React's powerful features. When you work with React, it is important to start thinking about your user interface in terms of components like the App example in the last challenge. You break down your UI into its basic building blocks, and those pieces become the components. This helps to separate the code responsible for the UI from the code responsible for handling your application logic. It can greatly simplify the development and maintenance of complex projects.
+
+  * Imagine you are building an App and have created three components, a `Navbar`, `Dashboard`, and `Footer`. To compose these components together, you could create an `App` parent component which renders each of these three components as children. To render a component as a child in a React component, you include the component name written as a custom HTML tag in the JSX. For example, in the `render` method you could write:
+      ```
+      return (
+          <App>
+          <Navbar />
+          <Dashboard />
+          <Footer />
+          </App>
+      )
+      ```
+      * When React encounters a custom HTML tag that references another component (a component name wrapped in `< />` like in this example), it renders the markup for that component in the location of the tag.
+  
+  * You can render JSX elements, stateless functional components, and ES6 class components within other components.
 
 * Rendering React components
-    * None of the React code you write will render to the DOM without making a call to the ReactDOM API.
-    * React components are passed to the API a little differently than JSX elements. You need to use the same syntax as if you were rendering a nested component:
-        ```
-        ReactDOM.render(<ComponentToRender / >, targetNode)
-        ```
-        * This syntax is used for both ES6 class components and functional components.
+  * None of the React code you write will render to the DOM without making a call to the ReactDOM API.
+  * React components are passed to the API a little differently than JSX elements. You need to use the same syntax as if you were rendering a nested component:
+    ```
+    ReactDOM.render(<ComponentToRender / >, targetNode)
+    ```
+    * This syntax is used for both ES6 class components and functional components.
     
+* **Props** (a.k.a properties)
+  * In React, you can pass props, or properties, to child components. Say you have an `App` component which renders a child component called `Welcome` which is a stateless functional component. You can pass `Welcome` a `user` property by writing:
+    ```
+    <App>
+      <Welcome user='Mark' />
+    </App>
+    ```
+  * You use custom HTML attributes created by you and supported by React to be passed to the component. In this case, the created property `user` is passed to the component `Welcome`. **Note that for prop values to be evaluated as JavaScript, they must be enclosed in curly brackets**: 
+    ```
+    const Welcome = (props) => <h1>Hello, {props.user}!</h1>
+    ```
+  * When rendering an array in the child component, `join(", ")` method can be used to create a string out of elements of the array: 
+    ```
+    const ChildComponent = (props) => <p>{props.colors.join(', ')}</p>
+
+    <ParentComponent>
+      <ChildComponent colors={["green", "blue", "red"]} />
+    </ParentComponent>
+    ```
+  * Default props
+    *  You can assign default props to a component as a property on the component itself and React assigns the default prop if necessary. This allows you to specify what a prop value should be if no value is explicitly provided.
+      ```
+      MyComponent.defaultProps = { location: 'San Francisco' }
+      ```
+    * React assigns default props if props are undefined, but if you pass `null` as the value for a prop, it will remain `null`.
+  
+  * PropTypes
+    * You can set propTypes on your component to require the data to be of type array. This will throw a useful warning when the data is of any other type.
+    * It's considered a best practice to set propTypes when you know the type of a prop ahead of time. You can define a propTypes property for a component in the same way you defined defaultProps.
+    * Example: 
+      ```
+      MyComponent.propTypes = { handleClick: PropTypes.func.isRequired }
+      ```
+    * The `PropTypes.func` part checks that `handleClick` is a function. Adding `isRequired` tells React that `handleClick` is a required property for that component. You will see a warning if that prop isn't provided. Also notice that `func` represents `function`. **Among the seven JavaScript primitive types, function and `boolean` (written as `bool`) are the only two that use unusual spelling.** In addition to the primitive types, there are other types available. For example, you can check that a prop is a React element. Please refer to the [documentation](https://reactjs.org/docs/jsx-in-depth.html#specifying-the-react-element-type) for all of the options.
+    * `PropTypes` is imported independently from React (as of v15.5.0):
+      ```
+      import PropTypes from 'prop-types';
+      ```
+
+  * Accessing props in ES6 class components
+    * Anytime you refer to a class component within itself, you use the `this` keyword. To access props within a class component, you preface the code that you use to access it with `this`. For example, if an ES6 class component has a prop called `data`, you write {this.props.data} in JSX.
+
 
 # React: Tasks
 
 ## 1. Create a simple JSX element
 
-`const JSX = <h1>Hello JSX!</h1>`
+```
+const JSX = <h1>Hello JSX!</h1>
+```
 
 ## 2. Create a complex JSX element
 
@@ -151,6 +205,7 @@ const JSX = (
   </div>
 );
 ```
+
 ## 7. Create a stateless functional component
 
 ```
@@ -160,6 +215,7 @@ const MyComponent = function() {
   )
 }
 ```
+
 ## 8. Create a React component
 
 ```
@@ -176,6 +232,7 @@ class MyComponent extends React.Component {
   }
 };
 ```
+
 ## 9. Create a component with composition
 
 ```
@@ -201,6 +258,7 @@ class ParentComponent extends React.Component {
   }
 };
 ```
+
 ## 10. Use React to render nested components
 
 ```
@@ -313,19 +371,175 @@ class MyComponent extends React.Component {
 
 ReactDOM.render(<MyComponent />, document.getElementById("challenge-node"));
 ```
-## . 
 
+## 14. Pass props to a stateless functional component
+```
+const CurrentDate = (props) => {
+  return (
+    <div>
+      <p>The current date is: {props.date} </p>
+    </div>
+  );
+};
+
+class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h3>What date is it?</h3>
+        <CurrentDate date={Date()} />
+      </div>
+    );
+  }
+};
 ```
 
+## 15. Pass an array as props
 ```
-## . 
+const List = (props) => {
+  return <p>{props.tasks.join(", ")}</p>
+};
 
+class ToDo extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>To Do Lists</h1>
+        <h2>Today</h2>
+        <List tasks={["walk dog", "workout"]} />
+        <h2>Tomorrow</h2>
+        <List tasks={["walk dog", "workout"]} />
+      </div>
+    );
+  }
+};
 ```
 
+## 16. Use default props
+```
+const ShoppingCart = (props) => {
+  return (
+    <div>
+      <h1>Shopping Cart Component</h1>
+    </div>
+  )
+};
+
+ShoppingCart.defaultProps = {
+  items: 0
+}
 ```
 
-## . 
+## 17. Override default props
+```
+const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+}
 
+Items.defaultProps = {
+  quantity: 0
+}
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <Items quantity={10} />
+  }
+};
 ```
 
+## 18. Use PropTypes to define the props you expect
+```
+const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+};
+
+Items.propTypes = {
+  quantity: PropTypes.number.isRequired
+}
+
+Items.defaultProps = {
+  quantity: 0
+};
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <Items />
+  }
+};
+```
+
+## 19. Access props using this.props
+```
+class ReturnTempPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+            <p>Your temporary password is: <strong>{this.props.tempPassword}</strong></p>
+        </div>
+    );
+  }
+};
+
+class ResetPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+          <h2>Reset Password</h2>
+          <h3>We've generated a new temporary password for you.</h3>
+          <h3>Please reset this password from your account settings ASAP.</h3>
+          <ReturnTempPassword tempPassword='abcdefgh' />
+        </div>
+    );
+  }
+};
+```
+
+## 20. Review using props with stateless functional components
+```
+class CampSite extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <Camper/>
+      </div>
+    );
+  }
+};
+
+const Camper = props => {
+  return <p>{props.name}</p>
+};
+
+// const Camper = props => <p>{props.name}</p>;
+
+Camper.defaultProps = {
+  name: 'CamperBot'
+};
+
+Camper.propTypes = {
+  name: PropTypes.string.isRequired
+};
 ```
