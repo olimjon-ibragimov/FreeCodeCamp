@@ -133,6 +133,31 @@
   * Accessing props in ES6 class components
     * Anytime you refer to a class component within itself, you use the `this` keyword. To access props within a class component, you preface the code that you use to access it with `this`. For example, if an ES6 class component has a prop called `data`, you write {this.props.data} in JSX.
 
+* **State**
+  * One of the most important topics in React
+  * State consists of any data your application needs to know about, that can change over time. Your appls should be able to respond to state changes and present an updated UI when necessary. React uses what is called a virtual DOM, to keep track of changes behind the scenes. When state data updates, it triggers a re-render of the components using that data - including child components that received the data as a prop. React updates the actual DOM, but only where necessary. This means you don't have to worry about changing the DOM. You simply declare what the UI should look like.
+  * You create state in a React component by declaring a `state` property on the component class in its `constructor`. This initializes the component with `state` when it is created.
+  * The component must be created by extending `React.Component` in order for state to work
+  * The `state` property must be set to a JavaScript object:
+    ```
+    this.state = {
+      // describe your state here
+    }
+    ```
+  * You can:
+    * update it
+    * render it in UI
+    * pass as props to child components
+  * Once you define a component's initial state, you can display any part of it in the UI that is rendered. If a component is stateful, it will always have access to the data in `state` in its `render()` method. You can access the data with `this.state`.
+  * Note that if you make a component stateful, **no other components are aware of its state**. Its state is completely **encapsulated**, or local to that component, unless you pass state data to a child component as props. This notion of encapsulated state is very important because it allows you to write certain logic, then have that logic contained and isolated in one place in your code.
+  * There is another way to access state in a component:
+    * In the render() method, before the return statement, you can write JavaScript directly. You could:
+      * declare functions
+      * access data from state or props
+      * perform computations on this data, and so on. 
+    * Then, you can assign any data to variables, which you have access to in the return statement.
+
+
 
 # React: Tasks
 
@@ -541,5 +566,71 @@ Camper.defaultProps = {
 
 Camper.propTypes = {
   name: PropTypes.string.isRequired
+};
+```
+
+## 21. Create a stateful component
+```
+class StatefulComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    // Only change code below this line
+      this.state = {
+        name: "John"
+      }
+    // Only change code above this line
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.name}</h1>
+      </div>
+    );
+  }
+};
+```
+
+## 22. Render state in the user interface
+```
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    return (
+      <div>
+        { /* Change code below this line */ }
+        <h1>{this.state.name}</h1>
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+## 23. Render state in the user interface another way
+```
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    // Change code below this line
+    const name = this.state.name
+    // Change code above this line
+    return (
+      <div>
+        { /* Change code below this line */ }
+        <h1>{name}</h1>
+        { /* Change code above this line */ }
+      </div>
+    );
+  }
 };
 ```
